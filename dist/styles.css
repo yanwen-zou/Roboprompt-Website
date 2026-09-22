@@ -105,13 +105,15 @@ figcaption { font-size:13px; color:var(--muted); line-height:1.6; }
 .metric-value > span { font-size:44px; }
 .metric-value svg { position:absolute; inset:-4px -25px; width:calc(100% + 50px); height:calc(100% + 14px); fill:none; stroke:var(--red); stroke-width:2; }
 .metrics h3 { font-size:29px; }
+.results-section .section-heading { margin-bottom:18px; }
+.results-context { max-width:980px; color:var(--muted); }
 .metrics p { font-size:15px; line-height:1.65; max-width:410px; color:var(--muted); margin-top:10px; }
 .policy-note { margin:42px 0 24px; font-size:30px; }
 .policy-results { margin-top:0; }
 .results-footnote { font-size:12px; color:var(--muted); margin-top:24px; max-width:900px; }
 .bibtex { margin:26px 0 0; min-height:110px; border:1px solid var(--rule); border-radius:3px; padding:24px; white-space:pre-wrap; overflow-wrap:anywhere; }
 #method-title { font-size:44px; }
-@media (min-width:900px) { #intro-title,#method-title,#results-title,.hero-subtitle { white-space:nowrap; } }
+@media (min-width:900px) { #intro-title,#method-title,#results-title,#demos-title,.hero-subtitle { white-space:nowrap; } }
 
 @media (min-width:1600px) { .wrap { width:min(1320px,calc(100% - 128px)); } }
 @media (max-width:1150px) {

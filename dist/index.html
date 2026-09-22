@@ -66,7 +66,7 @@
 
     <section id="demos" class="demo-section section" aria-labelledby="demos-title">
       <div class="wrap">
-        <div class="section-heading"><h2 id="demos-title">Small prompts.<br><span class="handwritten">Meaningful corrections.</span></h2></div>
+        <div class="section-heading"><h2 id="demos-title">Small prompts. Meaningful corrections.</h2></div>
         <div class="demo-tabs" role="tablist" aria-label="Robot experiments">
           <button id="tab-bread" type="button" role="tab" aria-selected="true" aria-controls="demo-panel" data-demo="bread"><span class="tab-number">01</span><span>Insert bread<small>Trace the motion</small></span></button>
           <button id="tab-cup" type="button" role="tab" aria-selected="false" tabindex="-1" aria-controls="demo-panel" data-demo="cup"><span class="tab-number">02</span><span>Hang a cup<small>Point to the target</small></span></button>
@@ -84,7 +84,7 @@
       <div class="method-steps"><article><span class="step-label blue">PHASE I</span><h3>From prompt to action draft</h3><p>A reusable 0.77B-parameter steering model translates points, traces, and coarse directions into a continuous 6D action draft.</p></article><div class="step-arrow" aria-hidden="true"><svg class="icon"><use href="#icon-arrow-right"/></svg></div><article><span class="step-label red">PHASE II</span><h3>From draft to fine movement</h3><p>The base policy refines the draft through diffusion or flow matching. Progressive denoising gradually returns control to the policy.</p></article></div>
       <figure class="research-figure"><a href="assets/architecture.png" target="_blank" rel="noopener" aria-label="Open full-size system architecture"><img src="assets/architecture.png" width="2400" height="908" loading="lazy" alt="Two-phase architecture: visual and directional prompts enter Evo-1 to produce a 3D action draft, then progressive policy refinement across action chunks produces guided actions."></a></figure>
       <div class="training-section" aria-labelledby="training-title">
-        <h3 id="training-title">Learning to draft from <span class="highlight">500 episodes of play data.</span></h3>
+        <h3 id="training-title">Learning steerability</h3>
         <div class="training-steps">
           <article><h4>Collect the motion</h4><p>The Phase I steering model is trained on 500 play-data episodes collected on the same robot platform. Each training window pairs the current observation with the robot's executed future motion.</p></article>
           <article><h4>Turn motion into prompts</h4><p>Project future end-effector poses into the camera image: the final position becomes a point label, and the connected positions become a trace. Sum and normalize XYZ displacements to produce a coarse directional instruction.</p></article>
@@ -102,6 +102,7 @@
     <section id="results" class="results-section section" aria-labelledby="results-title">
       <div class="wrap">
         <div class="section-heading"><h2 id="results-title">Better policies. Fewer interventions.</h2></div>
+        <p class="results-context">Co-training with the original offline demonstrations and filtered steered DAgger rollouts leads to better policies and fewer human interventions.</p>
         <div class="metrics"><article><span class="metric-value">+15.5<span> pp</span></span><h3>Average task progress gain</h3><p>80.0% to 95.5% on average for &pi;<sub>0.5</sub> across three tasks after DAgger: a 15.5 percentage-point increase.</p></article><article><span class="metric-value">44.0<span>%</span><svg viewBox="0 0 250 100" preserveAspectRatio="none" aria-hidden="true"><path d="M225 15C140-10 21 2 8 43C-10 94 198 108 238 67C266 39 222 9 153 5"/></svg></span><h3>Fewer human interventions</h3><p>2.86 to 1.60 on average for &pi;<sub>0.5</sub> across three tasks after DAgger.</p></article></div>
         <figure class="research-figure results-figure"><a href="assets/dagger-results.png" target="_blank" rel="noopener" aria-label="Open full-size DAgger results"><img src="assets/dagger-results.png" width="2400" height="532" loading="lazy" alt="Paper results for Insert Bread, Hang Cup, and Push Ball, comparing task success rates and steering counts across successive DAgger rounds."></a><figcaption>Policy improvement with &pi;<sub>0.5</sub> across three real-world tasks. Round 0 is the original policy.</figcaption></figure>
         <p class="policy-note handwritten blue">One plug-and-play module for various policies, without fine-tuning the base policy.</p>
