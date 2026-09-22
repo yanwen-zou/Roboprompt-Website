@@ -1,0 +1,34 @@
+WEBVTT
+
+01:22.561 --> 01:27.380
+RoboPrompt lets users steer robots with points, traces, or coarse directions.
+
+01:28.118 --> 01:31.567
+These corrections also provide data for policy improvement.
+
+01:31.966 --> 01:35.295
+A lightweight model drafts actions from human intent.
+
+01:36.098 --> 01:38.356
+The base policy then refines them.
+
+01:38.768 --> 01:41.896
+Phase I learns from 500 play trajectories,
+
+01:41.988 --> 01:44.961
+with prompt labels derived from the robot's motion.
+
+01:46.068 --> 01:49.742
+This turns sparse guidance into continuous action chunks.
+
+01:51.468 --> 01:55.004
+In Phase II, the base policy refines these action drafts
+
+01:55.024 --> 01:59.327
+through continuous denoising, producing precise, task-aware motion.
+
+01:59.963 --> 02:04.438
+Finally, time-weighted optimal transport selects high-quality rollout data.
+
+02:05.212 --> 02:08.664
+Training on this filtered data improves policy performance.

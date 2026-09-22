@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fdfdfb">
+  <meta name="description" content="RoboPrompt translates sparse points, drawn traces, and directional prompts into robot policy corrections, without changing the base policy architecture.">
+  <meta property="og:title" content="RoboPrompt: Intuitive Robot Policy Steering">
+  <meta property="og:description" content="A little human guidance. More capable robot policies.">
+  <meta property="og:type" content="website">
+  <title>RoboPrompt | Intuitive Robot Policy Steering</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='8' fill='%23f5ef61'/%3E%3Cpath d='M13 44C9 26 20 11 37 13S57 36 46 47S20 57 15 39M22 41L40 24M28 23L41 23L41 36' fill='none' stroke='%232c4cde' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="preload" href="assets/caveat-bold.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="preload" href="assets/dm-sans.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+  <script src="main.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header wrap">
+    <a class="wordmark" href="#" aria-label="RoboPrompt home"><span class="logo-mark" aria-hidden="true">rp.</span> RoboPrompt</a>
+    <nav aria-label="Main navigation">
+      <a href="#demos">In action</a>
+      <a href="#method">The method</a>
+      <a href="#results">Results</a>
+    </nav>
+    <a class="header-paper" href="assets/roboprompt-paper.pdf" target="_blank" rel="noopener">Paper <svg class="icon" aria-hidden="true"><use href="#icon-arrow-up-right"/></svg></a>
+  </header>
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy wrap">
+        <p class="eyebrow">POINT. SKETCH. STEER.</p>
+        <h1 id="hero-title">Robo<span class="circled">Prompt<svg viewBox="0 0 470 150" preserveAspectRatio="none" aria-hidden="true"><path d="M439 23C375-1 104-8 29 35C-27 67 18 119 133 133C257 149 442 127 461 76C474 41 394 5 301 10"/></svg></span><span class="title-dot">.</span></h1>
+        <p class="hero-subtitle">Intuitive Robot Policy Steering<br>with <span class="highlight">Sparse Human Input</span></p>
+        <div class="hero-links">
+          <a class="button button-primary" href="assets/roboprompt-paper.pdf" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#icon-file"/></svg> Read the paper</a>
+          <a class="button button-text" href="#film"><svg class="icon" aria-hidden="true"><use href="#icon-play"/></svg> Watch the film <span class="duration">2:44</span></a>
+        </div>
+      </div>
+      <div class="hero-stage wrap">
+        <div class="margin-note note-left" aria-hidden="true">a sketch<br>is all it takes<svg viewBox="0 0 130 90"><path d="M8 10C-4 56 47 72 111 48M95 40L113 48L99 63"/></svg></div>
+        <div class="hero-footage">
+          <video id="hero-video" muted loop playsinline preload="metadata" poster="assets/hero-poster.jpg" aria-label="Recorded RoboPrompt experiment: a human draws a trajectory to steer bread insertion"><source src="assets/hero-loop.mp4" type="video/mp4"></video>
+          <span class="footage-label">REAL ROBOT. SPARSE INPUT.</span>
+          <button class="icon-button video-toggle" id="hero-toggle" type="button" aria-label="Play experiment preview" title="Play experiment preview"><svg class="icon" aria-hidden="true"><use href="#icon-play"/></svg></button>
+        </div>
+        <div class="margin-note note-right" aria-hidden="true"><svg viewBox="0 0 120 85"><path d="M113 10C122 50 64 75 10 51M23 42L9 51L20 64"/></svg>the policy<br>takes it from here.</div>
+      </div>
+      <div class="hero-caption wrap"><span><span class="small-cross" aria-hidden="true">+</span> Your intention, in the robot's actions.</span><a href="#demos">See it in action <svg class="icon" aria-hidden="true"><use href="#icon-arrow-down"/></svg></a></div>
+    </section>
+
+    <section class="intro-section section wrap" aria-labelledby="intro-title">
+      <div class="section-index"><span>01 / THE IDEA</span><span class="handwritten blue">Less explaining. More doing.</span></div>
+      <div class="intro-grid">
+        <h2 id="intro-title">Robots learn. <br>Sometimes, they need<br>a <span class="handwritten blue">little nudge.</span></h2>
+        <div class="prose"><p>Robot policies can do a lot. But when a motion goes wrong, telling the robot exactly how to recover is still surprisingly hard.</p><p>RoboPrompt makes that correction as simple as a point, a sketch, or a direction. A lightweight module translates your intent into an action draft; the robot's own policy refines it into fine-grained movement.</p><p class="key-line">No specialized teleoperation hardware. No architectural changes or steerability fine-tuning of the base policy.</p></div>
+      </div>
+      <div class="policy-strip"><span>ONE STEERING FRAMEWORK</span><div>Diffusion Policy <i aria-hidden="true">/</i> <span>&pi;<sub>0.5</sub></span> <i aria-hidden="true">/</i> FastWAM</div><span class="handwritten">different policies, same idea.</span></div>
+    </section>
+
+    <section id="demos" class="demo-section section" aria-labelledby="demos-title">
+      <div class="wrap">
+        <div class="section-index"><span>02 / IN ACTION</span><span class="handwritten red">A point. A path. A direction.</span></div>
+        <div class="section-heading"><h2 id="demos-title">Small prompts.<br><span class="handwritten">Meaningful corrections.</span></h2><p>Steer the next move, then let the policy<br class="desktop-only"> get on with the task.</p></div>
+        <div class="demo-tabs" role="tablist" aria-label="Robot experiments">
+          <button id="tab-bread" type="button" role="tab" aria-selected="true" aria-controls="demo-panel" data-demo="bread"><span class="tab-number">01</span><span>Insert bread<small>Trace the motion</small></span><svg class="icon" aria-hidden="true"><use href="#icon-route"/></svg></button>
+          <button id="tab-cup" type="button" role="tab" aria-selected="false" tabindex="-1" aria-controls="demo-panel" data-demo="cup"><span class="tab-number">02</span><span>Hang a cup<small>Point to the target</small></span><svg class="icon" aria-hidden="true"><use href="#icon-target"/></svg></button>
+          <button id="tab-ball" type="button" role="tab" aria-selected="false" tabindex="-1" aria-controls="demo-panel" data-demo="ball"><span class="tab-number">03</span><span>Push a ball<small>Guide the path</small></span><svg class="icon" aria-hidden="true"><use href="#icon-move"/></svg></button>
+        </div>
+        <div class="demo-body" id="demo-panel" role="tabpanel" aria-labelledby="tab-bread" tabindex="0">
+          <video id="demo-video" controls muted playsinline preload="none" poster="assets/bread-poster.jpg" aria-label="Insert bread experiment"><source src="assets/bread.mp4" type="video/mp4"></video>
+          <div class="demo-description"><span class="experiment-label">RECORDED EXPERIMENT / <span id="demo-number">01</span></span><h3 id="demo-title">A trace becomes<br>a correction.</h3><p id="demo-copy">A short trajectory drawn on the camera view guides the robot toward the toaster. The base policy refines the motion for insertion.</p><div class="prompt-tag"><svg class="icon" aria-hidden="true"><use id="demo-icon" href="#icon-route"/></svg><span id="demo-type">Visual trajectory prompt</span></div><p class="demo-note">Original experiment footage; playback speed varies as labeled in the video.</p></div>
+        </div>
+        <div class="direction-note"><svg class="icon" aria-hidden="true"><use href="#icon-move"/></svg><p><strong>Beyond the image plane.</strong> Coarse directional prompts also specify motion in the robot's global X, Y, and Z axes.</p></div>
+      </div>
+    </section>
+
+    <section id="method" class="method-section section wrap" aria-labelledby="method-title">
+      <div class="section-index"><span>03 / UNDER THE HOOD</span><span class="handwritten blue">Your intent + the policy's know-how</span></div>
+      <h2 id="method-title">Draft the intention.<br><span class="handwritten">Refine the action.</span></h2>
+      <div class="method-steps"><article><span class="step-label blue">PHASE I</span><h3>From prompt to action draft</h3><p>A reusable 0.77B-parameter steering model translates points, traces, and coarse directions into a continuous 6D action draft.</p></article><div class="step-arrow" aria-hidden="true"><svg class="icon"><use href="#icon-arrow-right"/></svg></div><article><span class="step-label red">PHASE II</span><h3>From draft to fine movement</h3><p>The base policy refines the draft through diffusion or flow matching. Progressive denoising gradually returns control to the policy.</p></article></div>
+      <figure class="research-figure"><a href="assets/architecture.png" target="_blank" rel="noopener" aria-label="Open full-size system architecture"><img src="assets/architecture.png" width="2400" height="908" loading="lazy" alt="Two-phase architecture: visual and directional prompts enter Evo-1 to produce a 3D action draft, then progressive policy refinement across action chunks produces guided actions."></a><figcaption><span class="figure-number">FIG. 01</span> One reusable steering module, paired with the task-aware prior of the base policy.</figcaption></figure>
+      <div class="method-bottom"><p><strong>A smooth handoff.</strong> Noise-Augmented Flow Reversal Steering balances the human draft and policy prior, while Progressive Biased Denoising carries a prompt across multiple action chunks.</p><a class="inline-link" href="assets/roboprompt-paper.pdf#page=3" target="_blank" rel="noopener">The details in the paper <svg class="icon" aria-hidden="true"><use href="#icon-arrow-up-right"/></svg></a></div>
+    </section>
+
+    <section id="results" class="results-section section" aria-labelledby="results-title">
+      <div class="wrap">
+        <div class="section-index"><span>04 / LEARNING FROM THE NUDGE</span><span class="handwritten">A little help now. Less help later.</span></div>
+        <div class="section-heading"><h2 id="results-title">Better policies.<br><span class="handwritten">Fewer interventions.</span></h2><p>Corrected rollouts become training data.<br>TOT filtering selects higher-quality examples<br>for the next round of DAgger.</p></div>
+        <div class="metrics"><article><span class="metric-value">97.1<span>%+</span></span><h3>Prompt alignment</h3><p>Across Diffusion Policy, &pi;<sub>0.5</sub>, and FastWAM in steering experiments.</p></article><article><span class="metric-value">44.0<span>%</span><svg viewBox="0 0 250 100" preserveAspectRatio="none" aria-hidden="true"><path d="M225 15C140-10 21 2 8 43C-10 94 198 108 238 67C266 39 222 9 153 5"/></svg></span><h3>Fewer human interventions</h3><p>2.86 to 1.60 on average for &pi;<sub>0.5</sub> across three tasks after DAgger.</p></article><article><span class="metric-value">2<span>–</span>3</span><h3>Rounds of improvement</h3><p>Steered rollouts improve the policy through a small number of DAgger iterations.</p></article></div>
+        <figure class="research-figure results-figure"><a href="assets/dagger-results.png" target="_blank" rel="noopener" aria-label="Open full-size DAgger results"><img src="assets/dagger-results.png" width="2400" height="532" loading="lazy" alt="Paper results for Insert Bread, Hang Cup, and Push Ball, comparing task success rates and steering counts across successive DAgger rounds."></a><figcaption><span class="figure-number">FIG. 02</span> Policy improvement with &pi;<sub>0.5</sub> across three real-world tasks. Round 0 is the original policy.</figcaption></figure>
+        <p class="results-footnote">Results reported in the paper. Prompt alignment measures agreement on the dimensions specified by each prompt; it is not the task success rate.</p>
+      </div>
+    </section>
+
+    <section id="film" class="film-section section wrap" aria-labelledby="film-title">
+      <div class="section-index"><span>05 / THE FULL STORY</span><span class="handwritten red">See the whole loop.</span></div>
+      <div class="section-heading"><h2 id="film-title">RoboPrompt, <span class="handwritten">in motion.</span></h2><span class="film-length">2 MIN 44 SEC</span></div>
+      <video id="film-video" controls playsinline preload="none" poster="assets/film-poster.jpg" aria-label="RoboPrompt full research presentation"><source src="assets/roboprompt-film.mp4" type="video/mp4"><track kind="captions" src="assets/film-captions.vtt" srclang="en" label="English" default></video>
+    </section>
+    <footer class="wrap site-footer"><div><a class="footer-brand" href="#">RoboPrompt<span class="blue">.</span></a><p>Intuitive Robot Policy Steering with Sparse Human Input</p></div><a href="assets/roboprompt-paper.pdf" target="_blank" rel="noopener">Read the paper <svg class="icon" aria-hidden="true"><use href="#icon-arrow-up-right"/></svg></a><span class="handwritten footer-note">Every good action<br>starts with an idea.</span></footer>
+  </main>
+  <svg class="icon-definitions" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
+    <!-- Lucide icons, ISC license; see assets/lucide-LICENSE. -->
+    <symbol id="icon-arrow-up-right" viewBox="0 0 24 24"><path d="M7 7h10v10M7 17 17 7"/></symbol>
+    <symbol id="icon-arrow-down" viewBox="0 0 24 24"><path d="M12 5v14m-7-7 7 7 7-7"/></symbol>
+    <symbol id="icon-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14m-7-7 7 7-7 7"/></symbol>
+    <symbol id="icon-play" viewBox="0 0 24 24"><path d="m6 3 14 9-14 9V3Z"/></symbol>
+    <symbol id="icon-pause" viewBox="0 0 24 24"><rect x="5" y="3" width="4" height="18" rx="1"/><rect x="15" y="3" width="4" height="18" rx="1"/></symbol>
+    <symbol id="icon-file" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8ZM14 2v6h6M8 13h8M8 17h6"/></symbol>
+    <symbol id="icon-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></symbol>
+    <symbol id="icon-route" viewBox="0 0 24 24"><circle cx="6" cy="18" r="3"/><path d="M9 18h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"/><path d="m12 1 3 3-3 3"/></symbol>
+    <symbol id="icon-move" viewBox="0 0 24 24"><path d="m5 9-3 3 3 3m4-10 3-3 3 3m4 4 3 3-3 3m-4 4-3 3-3-3M2 12h20M12 2v20"/></symbol>
+  </defs></svg>
+</body>
+</html>
