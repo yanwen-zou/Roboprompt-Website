@@ -1,38 +1,45 @@
-const heroVideo = document.querySelector('#hero-video');
-const heroToggle = document.querySelector('#hero-toggle');
 const motionPreference = matchMedia('(prefers-reduced-motion: reduce)');
-let heroEnabled = !motionPreference.matches;
+const manualVideos = [...document.querySelectorAll('video:not([data-loop-video])')];
+const loopPlayers = [...document.querySelectorAll('[data-loop-player]')].map(container => {
+  const video = container.querySelector('[data-loop-video]');
+  const button = container.querySelector('[data-loop-toggle]');
+  const state = { video, button, inView: false, enabled: !motionPreference.matches };
+  state.updateButton = () => {
+    const label = `${video.paused ? 'Play' : 'Pause'} ${container.dataset.label}`;
+    button.setAttribute('aria-label', label);
+    button.title = label;
+    button.querySelector('use').setAttribute('href', video.paused ? '#icon-play' : '#icon-pause');
+  };
+  video.addEventListener('play', state.updateButton);
+  video.addEventListener('pause', state.updateButton);
+  button.addEventListener('click', () => {
+    state.enabled = video.paused;
+    if (state.enabled) manualVideos.forEach(other => other.pause());
+    syncLoops();
+  });
+  return state;
+});
 
-function syncHeroButton() {
-  const paused = heroVideo.paused;
-  const label = paused ? 'Play experiment preview' : 'Pause experiment preview';
-  heroToggle.setAttribute('aria-label', label);
-  heroToggle.title = label;
-  heroToggle.querySelector('use').setAttribute('href', paused ? '#icon-play' : '#icon-pause');
+function syncLoops() {
+  const suspended = document.hidden || manualVideos.some(video => !video.paused);
+  for (const player of loopPlayers) {
+    if (player.inView && player.enabled && !suspended) player.video.play().catch(player.updateButton);
+    else player.video.pause();
+  }
 }
 
-heroVideo.addEventListener('play', syncHeroButton);
-heroVideo.addEventListener('pause', syncHeroButton);
-heroToggle.addEventListener('click', () => {
-  heroEnabled = heroVideo.paused;
-  if (heroEnabled) heroVideo.play().catch(syncHeroButton);
-  else heroVideo.pause();
-});
-motionPreference.addEventListener('change', event => {
-  if (event.matches) { heroEnabled = false; heroVideo.pause(); }
-});
-
-const heroObserver = new IntersectionObserver(([entry]) => {
-  if (entry.isIntersecting && heroEnabled && !document.hidden) heroVideo.play().catch(syncHeroButton);
-  else heroVideo.pause();
-}, { threshold: 0.15 });
-heroObserver.observe(heroVideo);
-document.addEventListener('visibilitychange', () => {
-  if (document.hidden) heroVideo.pause();
-  else if (heroEnabled) {
-    const rect = heroVideo.getBoundingClientRect();
-    if (rect.bottom > 0 && rect.top < innerHeight) heroVideo.play().catch(syncHeroButton);
+// Silent previews may play together; full videos suspend those loops.
+const loopObserver = new IntersectionObserver(entries => {
+  for (const entry of entries) {
+    loopPlayers.find(player => player.video === entry.target).inView = entry.isIntersecting;
   }
+  syncLoops();
+}, { threshold: 0.2 });
+loopPlayers.forEach(player => loopObserver.observe(player.video));
+document.addEventListener('visibilitychange', syncLoops);
+motionPreference.addEventListener('change', event => {
+  if (event.matches) loopPlayers.forEach(player => { player.enabled = false; });
+  syncLoops();
 });
 
 const demos = {
@@ -59,7 +66,6 @@ function selectDemo(tab) {
   demoVideo.querySelector('source').src = `assets/${key}.mp4`;
   demoVideo.setAttribute('aria-label', demo.label);
   demoVideo.load();
-  document.querySelector('#demo-number').textContent = demo.number;
   document.querySelector('#demo-title').textContent = demo.title;
   document.querySelector('#demo-copy').textContent = demo.copy;
   document.querySelector('#demo-type').textContent = demo.type;
@@ -78,11 +84,13 @@ tabs.forEach((tab, index) => {
   });
 });
 
-// Keep recorded experiments from competing for attention or audio.
-document.querySelectorAll('video').forEach(video => {
+manualVideos.forEach(video => {
   video.addEventListener('play', () => {
-    document.querySelectorAll('video').forEach(other => {
+    manualVideos.forEach(other => {
       if (other !== video) other.pause();
     });
+    syncLoops();
   });
+  video.addEventListener('pause', syncLoops);
+  video.addEventListener('ended', syncLoops);
 });
