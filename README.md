@@ -19,9 +19,10 @@ No venue or publication URL is invented.
 
 Demo footage is prerecorded and does not connect to a robot. The top row shows
 bread, cup, and maze steering; the full presentation follows on its own row.
-The current full presentation is `dist/assets/roboprompt-website-version.mp4`,
+The current full presentation is `dist/assets/roboprompt-website-audio.mp4`,
 converted from `../video/website_version/website_version.mov` to H.264 at
-1920x1080 with fast-start playback. It has no audio stream or subtitle track.
+1920x1080 with fast-start playback. Its original AAC audio is copied without
+re-encoding; there is no subtitle track and playback is not muted by default.
 The matching cover comes from the same source folder. Independent steering
 and method clips retain their existing sources.
 The current method loops use the user-specified V9 editing pack:
