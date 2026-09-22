@@ -19,6 +19,11 @@ No venue or publication URL is invented.
 
 Demo footage is prerecorded and does not connect to a robot. The top row shows
 bread, cup, and maze steering; the full presentation follows on its own row.
+The current full presentation is `dist/assets/roboprompt-website-version.mp4`,
+converted from `../video/website_version/website_version.mov` to H.264 at
+1920x1080 with fast-start playback. It has no audio stream or subtitle track.
+The matching cover comes from the same source folder. Independent steering
+and method clips retain their existing sources.
 The current method loops use the user-specified V9 editing pack:
 `../video/method_animation/v9_nonactive_play/RoboPrompt_methods_v9_editing_pack 2/clips`.
 `phase-i-v9.mp4` is 16-21 seconds of `02_Phase_I.mp4`; `tot-filtering-v9.mp4`

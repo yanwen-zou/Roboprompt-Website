@@ -61,7 +61,7 @@ h1 { font-size:112px; line-height:1.2; white-space:nowrap; }
 .film-section video { display:block; width:100%; aspect-ratio:16/9; background:#20221e; }
 
 .intro-grid { display:grid; grid-template-columns:1.2fr 1fr; gap:64px; align-items:center; }
-#intro-title { margin-bottom:34px; }
+#intro-title { margin-bottom:34px; line-height:1.15; text-wrap:balance; }
 .overview-figure { margin-top:0; }
 .prose p + p { margin-top:20px; }
 .prose p { color:var(--muted); }
@@ -80,7 +80,6 @@ h1 { font-size:112px; line-height:1.2; white-space:nowrap; }
 .demo-body video { width:100%; aspect-ratio:16/9; background:var(--ink); display:block; object-fit:contain; }
 .demo-description h3 { font-size:38px; margin-bottom:18px; }
 .demo-description > p { color:var(--muted); }
-.demo-description .demo-note { font-size:12px; margin-top:16px; }
 
 .method-steps { display:grid; grid-template-columns:1fr 70px 1fr; gap:26px; margin:40px 0; }
 .step-label { font:700 24px var(--hand); display:block; margin-bottom:8px; }
@@ -94,7 +93,7 @@ figcaption { font-size:13px; color:var(--muted); line-height:1.6; }
 .training-section,.filtering-section { margin-top:54px; }
 #training-title,#filtering-title { font-size:40px; line-height:1.2; }
 .filtering-section .prose { max-width:900px; margin:24px 0 30px; }
-.training-steps { display:grid; grid-template-columns:1fr 1fr 1.2fr; gap:32px; margin:30px 0; }
+.training-steps { display:grid; grid-template-columns:1fr 1fr; gap:40px; margin:30px 0; }
 .training-steps h4 { color:var(--blue); margin-bottom:14px; }
 .training-steps p { color:var(--muted); }
 .training-animation,.filtering-animation { max-width:1000px; margin-inline:auto; }
@@ -134,10 +133,9 @@ figcaption { font-size:13px; color:var(--muted); line-height:1.6; }
 .chart-swatch::after { content:''; position:absolute; width:8px; height:8px; border-radius:50%; background:currentColor; left:10px; top:-3px; }
 .chart-data-table { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
 @media (max-width:1000px) { .charts-row { grid-template-columns:minmax(0,550px); justify-content:center; gap:36px; } }
-.results-footnote { font-size:12px; color:var(--muted); margin-top:24px; max-width:900px; }
 .bibtex { margin:26px 0 0; min-height:110px; border:1px solid var(--rule); border-radius:3px; padding:24px; white-space:pre-wrap; overflow-wrap:anywhere; }
 #method-title { font-size:44px; }
-@media (min-width:900px) { #intro-title,#method-title,#results-title,#demos-title,.hero-subtitle { white-space:nowrap; } }
+@media (min-width:900px) { #method-title,#results-title,#demos-title,.hero-subtitle { white-space:nowrap; } }
 
 @media (min-width:1600px) { .wrap { width:min(1320px,calc(100% - 128px)); } }
 @media (max-width:1150px) {
@@ -161,6 +159,7 @@ figcaption { font-size:13px; color:var(--muted); line-height:1.6; }
   .metric-value > span { font-size:32px; } .metric-value svg { left:-16px; width:calc(100% + 32px); } .metrics h3 { font-size:27px; }
 }
 @media (max-width:580px) {
+  #intro-title { font-size:36px; }
   .wrap { width:calc(100% - 32px); } h1 { font-size:73px; } .hero-subtitle { font-size:26px; }
   .authors { margin-top:20px; gap:6px 15px; } .author-notes { gap:4px 14px; }
   .hero-links { gap:12px; max-width:350px; margin-inline:auto; } .button { font-size:13px; padding:9px 13px; gap:8px; }

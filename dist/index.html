@@ -55,28 +55,28 @@
 
     <section id="film" class="film-section wrap" aria-labelledby="film-title">
       <h2 id="film-title">Full video</h2>
-      <video id="film-video" controls playsinline preload="none" poster="assets/film-poster.jpg" aria-label="RoboPrompt full research presentation"><source src="assets/roboprompt-film.mp4" type="video/mp4"><track kind="captions" src="assets/film-captions.vtt" srclang="en" label="English" default></video>
+      <video id="film-video" controls muted playsinline preload="none" poster="assets/website-version-poster.jpg" aria-label="RoboPrompt full research presentation"><source src="assets/roboprompt-website-version.mp4" type="video/mp4"></video>
     </section>
 
     <section class="intro-section section wrap" aria-labelledby="intro-title">
-      <h2 id="intro-title">Robots learn. Sometimes, they need a <span class="blue">little nudge.</span></h2>
+      <h2 id="intro-title">An intuitive interface for everyday users to steer robot policies is essential for <span class="blue">large-scale deployment.</span></h2>
       <div class="intro-grid">
-        <figure class="research-figure overview-figure"><a href="assets/overview.png" target="_blank" rel="noopener" aria-label="Open full-size RoboPrompt overview"><img src="assets/overview.png" width="2000" height="1617" loading="lazy" alt="RoboPrompt overview: points, traces, and directional guidance steer the robot; successful rollouts are filtered and mixed with offline data for continued policy improvement."></a><figcaption>Sparse human guidance closes the loop between deployment and policy improvement.</figcaption></figure>
-        <div class="prose"><p>Robot policies can do a lot. But when a motion goes wrong, telling the robot exactly how to recover is still surprisingly hard.</p><p>RoboPrompt makes that correction as simple as a point, a sketch, or a direction. A lightweight module translates your intent into an action draft; the robot's own policy refines it into fine-grained movement.</p><p class="key-line">No specialized teleoperation hardware. No architectural changes or steerability fine-tuning of the base policy.</p></div>
+        <figure class="research-figure overview-figure"><a href="assets/overview.png" target="_blank" rel="noopener" aria-label="Open full-size RoboPrompt overview"><img src="assets/overview.png" width="2000" height="1617" loading="lazy" alt="RoboPrompt overview: points, traces, and directional guidance steer the robot; successful rollouts are filtered and mixed with offline data for continued policy improvement."></a></figure>
+        <div class="prose"><p>Human correction commonly relies on teleoperation devices: an operator must continuously specify a 6D end-effector pose trajectory. This sustained low-level control is cumbersome, requires training, and is not intuitive for everyday users.</p><p>RoboPrompt lets users guide the robot with a point, a trace, or a coarse direction. A lightweight module translates this sparse intent into an action draft; the robot's own policy refines it into fine-grained movement.</p><p class="key-line">No specialized teleoperation hardware. No architectural changes or steerability fine-tuning of the base policy.</p></div>
       </div>
     </section>
 
     <section id="demos" class="demo-section section" aria-labelledby="demos-title">
       <div class="wrap">
-        <div class="section-heading"><h2 id="demos-title">Small prompts. Meaningful corrections.</h2></div>
+        <div class="section-heading"><h2 id="demos-title">Intuitive prompts</h2></div>
         <div class="demo-tabs" role="tablist" aria-label="Robot experiments">
           <button id="tab-bread" type="button" role="tab" aria-selected="true" aria-controls="demo-panel" data-demo="bread"><span class="tab-number">01</span><span>Insert bread<small>Trace the motion</small></span></button>
-          <button id="tab-cup" type="button" role="tab" aria-selected="false" tabindex="-1" aria-controls="demo-panel" data-demo="cup"><span class="tab-number">02</span><span>Hang a cup<small>Point to the target</small></span></button>
+          <button id="tab-cup" type="button" role="tab" aria-selected="false" tabindex="-1" aria-controls="demo-panel" data-demo="cup"><span class="tab-number">02</span><span>Hang a cup<small>Point &amp; coarse direction</small></span></button>
           <button id="tab-ball" type="button" role="tab" aria-selected="false" tabindex="-1" aria-controls="demo-panel" data-demo="ball"><span class="tab-number">03</span><span>Push a ball<small>Guide the path</small></span></button>
         </div>
         <div class="demo-body" id="demo-panel" role="tabpanel" aria-labelledby="tab-bread" tabindex="0">
           <video id="demo-video" controls muted playsinline preload="none" poster="assets/bread-poster.jpg" aria-label="Insert bread experiment"><source src="assets/bread.mp4" type="video/mp4"></video>
-          <div class="demo-description"><h3 id="demo-title">A trace becomes<br>a correction.</h3><p id="demo-copy">A short trajectory drawn on the camera view guides the robot toward the toaster. The base policy refines the motion for insertion.</p><p class="demo-note">Original experiment footage; playback speed varies as labeled in the video.</p></div>
+          <div class="demo-description"><h3 id="demo-title">A trace becomes<br>a correction.</h3><p id="demo-copy">A short trajectory drawn on the camera view guides the robot toward the toaster. The base policy refines the motion for insertion.</p></div>
         </div>
       </div>
     </section>
@@ -89,7 +89,6 @@
         <h3 id="training-title">Learning steerability</h3>
         <div class="training-steps">
           <article><h4>Collect the motion</h4><p>The Phase I steering model is trained on 500 play-data episodes collected on the same robot platform. Each training window pairs the current observation with the robot's executed future motion.</p></article>
-          <article><h4>Turn motion into prompts</h4><p>Project future end-effector poses into the camera image: the final position becomes a point label, and the connected positions become a trace. Sum and normalize XYZ displacements to produce a coarse directional instruction.</p></article>
           <article><h4>Train Phase I model</h4><p>The 0.77B Evo-1 model receives the prompted camera image, a separate prompt-only image, and the task instruction. Directional prompts are appended as text. Training combines action prediction with point, trace, and direction supervision; position and scale perturbations accommodate imprecise human input.</p></article>
         </div>
         <figure class="training-animation"><div class="loop-player" data-loop-player data-label="Phase I training animation"><video id="training-video" data-loop-video muted loop playsinline preload="none" poster="assets/phase-i-v9-poster.jpg" aria-label="Phase I play-data examples from the V9 method video"><source src="assets/phase-i-v9.mp4" type="video/mp4"></video></div></figure>
@@ -109,7 +108,6 @@
         <figure class="research-figure results-figure native-results"><div data-chart-set="tasks"></div><noscript><img src="assets/dagger-results.png" width="2400" height="532" alt="Success rates and steering counts across DAgger rounds for Insert Bread, Hang Cup, and Push Ball."></noscript><figcaption>Policy improvement with &pi;<sub>0.5</sub> across three real-world tasks. Round 0 is the original policy.</figcaption></figure>
         <p class="policy-note handwritten blue">One plug-and-play module for various policies, without fine-tuning the base policy.</p>
         <figure class="research-figure results-figure policy-results native-results"><div data-chart-set="policies"></div><noscript><img src="assets/dagger-policies.png" width="2400" height="532" alt="Success rates and steering counts on Insert Bread for pi-zero-point-five, Diffusion Policy, and FastWAM."></noscript><figcaption>Policy improvement on the same Insert Bread task. Round 0 is each original base policy.</figcaption></figure>
-        <p class="results-footnote">The summary metrics compare Round 0 with the final DAgger round for &pi;<sub>0.5</sub> across Insert Bread, Hang Cup, and Push Ball.</p>
       </div>
     </section>
 

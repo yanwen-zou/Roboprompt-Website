@@ -51,8 +51,8 @@ motionPreference.addEventListener('change', event => {
 
 const demos = {
   bread: { title: 'A trace becomes a correction.', copy: 'A short trajectory drawn on the camera view guides the robot toward the toaster. The base policy refines the motion for insertion.', label: 'Insert bread experiment' },
-  cup: { title: 'A point makes the goal clear.', copy: 'A target point and directional corrections guide the cup toward the peg. Sparse guidance helps recover the motion while the policy handles the task.', label: 'Hang a cup experiment' },
-  ball: { title: 'A new layout. A little guidance.', copy: 'Guide the ball across an uneven platform toward the flag. Steered rollouts on the unseen layout also provide data for later policy improvement.', label: 'Push a ball experiment' }
+  cup: { title: 'A point and a coarse direction.', copy: 'A point prompt specifies where the end effector should go, while a coarse directional prompt adjusts its motion in the robot\'s global frame. Together, these sparse inputs steer the cup onto the peg.', label: 'Hang a cup experiment' },
+  ball: { title: 'A new layout. A little guidance.', copy: 'We train the policy on multiple layouts and deploy it on an unseen layout where it fails to complete the task autonomously. Human steering enables completion, and the resulting steered rollouts can be used for online training to teach the policy the new layout.', label: 'Push a ball experiment' }
 };
 const demoVideo = document.querySelector('#demo-video');
 const demoPanel = document.querySelector('#demo-panel');
