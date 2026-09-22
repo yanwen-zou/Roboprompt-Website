@@ -2,20 +2,27 @@ const motionPreference = matchMedia('(prefers-reduced-motion: reduce)');
 const manualVideos = [...document.querySelectorAll('video:not([data-loop-video])')];
 const loopPlayers = [...document.querySelectorAll('[data-loop-player]')].map(container => {
   const video = container.querySelector('[data-loop-video]');
-  const button = container.querySelector('[data-loop-toggle]');
-  const state = { video, button, inView: false, enabled: !motionPreference.matches };
-  state.updateButton = () => {
+  const state = { video, inView: false, enabled: !motionPreference.matches };
+  video.setAttribute('role', 'button');
+  video.tabIndex = 0;
+  state.updateLabel = () => {
     const label = `${video.paused ? 'Play' : 'Pause'} ${container.dataset.label}`;
-    button.setAttribute('aria-label', label);
-    button.title = label;
-    button.querySelector('use').setAttribute('href', video.paused ? '#icon-play' : '#icon-pause');
+    video.setAttribute('aria-label', label);
   };
-  video.addEventListener('play', state.updateButton);
-  video.addEventListener('pause', state.updateButton);
-  button.addEventListener('click', () => {
+  const toggle = () => {
     state.enabled = video.paused;
     if (state.enabled) manualVideos.forEach(other => other.pause());
     syncLoops();
+  };
+  state.updateLabel();
+  video.addEventListener('play', state.updateLabel);
+  video.addEventListener('pause', state.updateLabel);
+  video.addEventListener('click', toggle);
+  video.addEventListener('keydown', event => {
+    if (event.key === ' ' || event.key === 'Enter') {
+      event.preventDefault();
+      toggle();
+    }
   });
   return state;
 });
@@ -23,7 +30,7 @@ const loopPlayers = [...document.querySelectorAll('[data-loop-player]')].map(con
 function syncLoops() {
   const suspended = document.hidden || manualVideos.some(video => !video.paused);
   for (const player of loopPlayers) {
-    if (player.inView && player.enabled && !suspended) player.video.play().catch(player.updateButton);
+    if (player.inView && player.enabled && !suspended) player.video.play().catch(player.updateLabel);
     else player.video.pause();
   }
 }
@@ -43,9 +50,9 @@ motionPreference.addEventListener('change', event => {
 });
 
 const demos = {
-  bread: { number: '01', title: 'A trace becomes a correction.', copy: 'A short trajectory drawn on the camera view guides the robot toward the toaster. The base policy refines the motion for insertion.', type: 'Visual trajectory prompt', icon: 'route', label: 'Insert bread experiment' },
-  cup: { number: '02', title: 'A point makes the goal clear.', copy: 'A target point and directional corrections guide the cup toward the peg. Sparse guidance helps recover the motion while the policy handles the task.', type: 'Point + directional prompts', icon: 'target', label: 'Hang a cup experiment' },
-  ball: { number: '03', title: 'A new layout. A little guidance.', copy: 'Guide the ball across an uneven platform toward the flag. Steered rollouts on the unseen layout also provide data for later policy improvement.', type: 'Sparse human guidance', icon: 'move', label: 'Push a ball experiment' }
+  bread: { title: 'A trace becomes a correction.', copy: 'A short trajectory drawn on the camera view guides the robot toward the toaster. The base policy refines the motion for insertion.', label: 'Insert bread experiment' },
+  cup: { title: 'A point makes the goal clear.', copy: 'A target point and directional corrections guide the cup toward the peg. Sparse guidance helps recover the motion while the policy handles the task.', label: 'Hang a cup experiment' },
+  ball: { title: 'A new layout. A little guidance.', copy: 'Guide the ball across an uneven platform toward the flag. Steered rollouts on the unseen layout also provide data for later policy improvement.', label: 'Push a ball experiment' }
 };
 const demoVideo = document.querySelector('#demo-video');
 const demoPanel = document.querySelector('#demo-panel');
@@ -68,8 +75,6 @@ function selectDemo(tab) {
   demoVideo.load();
   document.querySelector('#demo-title').textContent = demo.title;
   document.querySelector('#demo-copy').textContent = demo.copy;
-  document.querySelector('#demo-type').textContent = demo.type;
-  document.querySelector('#demo-icon').setAttribute('href', `#icon-${demo.icon}`);
 }
 
 tabs.forEach((tab, index) => {
