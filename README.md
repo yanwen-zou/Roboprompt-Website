@@ -35,3 +35,13 @@ Figures come from `overview.pdf`, `architechture.pdf`, `dagger_main.pdf`, and
 
 The site needs no build step or external runtime dependencies. Keep all of
 `dist` together when deploying. Large videos load only when needed.
+
+## GitHub Pages
+
+Repository: https://github.com/yanwen-zou/Roboprompt-Website
+
+The `Deploy GitHub Pages` workflow publishes `dist` on pushes to `main` and
+supports manual runs. The repository's Pages source must be GitHub Actions.
+Only the static website is uploaded, not local QA or hosting credentials.
+
+Project URL: https://yanwen-zou.github.io/Roboprompt-Website/
