@@ -45,3 +45,30 @@ supports manual runs. The repository's Pages source must be GitHub Actions.
 Only the static website is uploaded, not local QA or hosting credentials.
 
 Project URL: https://yanwen-zou.github.io/Roboprompt-Website/
+
+## Native experiment charts
+
+`dist/charts.js` renders the two result figures as responsive SVG components;
+`dist/charts-data.js` supplies their data. The renderer retains the original
+three-panel groups, dual axes (0-115% and -0.5-5.5), point labels, error bars,
+and dashed No Steer-to-Round-0 segments. Mobile layouts stack the panels.
+SVG text inherits the site's fonts and the plot background is transparent.
+
+All 41 displayed means are transcribed from the PDF labels at their original
+precision. Error-bar endpoints are recovered from the PDF vector paths using
+the original axis transforms and rounded to six decimals; these are geometric
+reconstructions, not newly calculated statistical estimates. In particular,
+the script does not assume that the bars are standard deviations or confidence
+intervals. Negative lower limits and limits above 100% are retained as drawn.
+
+The exact source PDFs are in `scripts/reference-figures/`, with SHA-256 hashes
+recorded in the data file. To inspect or regenerate the data JSON:
+
+```sh
+uv run --with pymupdf python scripts/extract-chart-data.py
+```
+
+The script checks every mean against source text and error-bar midpoints before
+exporting. The old PNGs remain as no-JavaScript fallbacks. Screen readers also
+receive a semantic table for every panel. No chart library or external service
+is required at runtime.

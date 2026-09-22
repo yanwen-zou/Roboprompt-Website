@@ -14,6 +14,8 @@
   <link rel="preload" href="assets/dm-sans.ttf" as="font" type="font/ttf" crossorigin>
   <link rel="stylesheet" href="styles.css">
   <script src="main.js" defer></script>
+  <script src="charts-data.js" defer></script>
+  <script src="charts.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -104,9 +106,9 @@
         <div class="section-heading"><h2 id="results-title">Better policies. Fewer interventions.</h2></div>
         <p class="results-context">Co-training with the original offline demonstrations and filtered steered DAgger rollouts leads to better policies and fewer human interventions.</p>
         <div class="metrics"><article><span class="metric-value">+15.5<span> pp</span></span><h3>Average task progress gain</h3><p>80.0% to 95.5% on average for &pi;<sub>0.5</sub> across three tasks after DAgger: a 15.5 percentage-point increase.</p></article><article><span class="metric-value">44.0<span>%</span><svg viewBox="0 0 250 100" preserveAspectRatio="none" aria-hidden="true"><path d="M225 15C140-10 21 2 8 43C-10 94 198 108 238 67C266 39 222 9 153 5"/></svg></span><h3>Fewer human interventions</h3><p>2.86 to 1.60 on average for &pi;<sub>0.5</sub> across three tasks after DAgger.</p></article></div>
-        <figure class="research-figure results-figure"><a href="assets/dagger-results.png" target="_blank" rel="noopener" aria-label="Open full-size DAgger results"><img src="assets/dagger-results.png" width="2400" height="532" loading="lazy" alt="Paper results for Insert Bread, Hang Cup, and Push Ball, comparing task success rates and steering counts across successive DAgger rounds."></a><figcaption>Policy improvement with &pi;<sub>0.5</sub> across three real-world tasks. Round 0 is the original policy.</figcaption></figure>
+        <figure class="research-figure results-figure native-results"><div data-chart-set="tasks"></div><noscript><img src="assets/dagger-results.png" width="2400" height="532" alt="Success rates and steering counts across DAgger rounds for Insert Bread, Hang Cup, and Push Ball."></noscript><figcaption>Policy improvement with &pi;<sub>0.5</sub> across three real-world tasks. Round 0 is the original policy.</figcaption></figure>
         <p class="policy-note handwritten blue">One plug-and-play module for various policies, without fine-tuning the base policy.</p>
-        <figure class="research-figure results-figure policy-results"><a href="assets/dagger-policies.png" target="_blank" rel="noopener" aria-label="Open full-size comparison across three policies"><img src="assets/dagger-policies.png" width="2400" height="532" loading="lazy" alt="Insert Bread results across pi-zero-point-five, Diffusion Policy, and FastWAM: success rates rise and steering counts fall across two or three DAgger rounds."></a><figcaption>Policy improvement on the same Insert Bread task. Round 0 is each original base policy.</figcaption></figure>
+        <figure class="research-figure results-figure policy-results native-results"><div data-chart-set="policies"></div><noscript><img src="assets/dagger-policies.png" width="2400" height="532" alt="Success rates and steering counts on Insert Bread for pi-zero-point-five, Diffusion Policy, and FastWAM."></noscript><figcaption>Policy improvement on the same Insert Bread task. Round 0 is each original base policy.</figcaption></figure>
         <p class="results-footnote">The summary metrics compare Round 0 with the final DAgger round for &pi;<sub>0.5</sub> across Insert Bread, Hang Cup, and Push Ball.</p>
       </div>
     </section>
