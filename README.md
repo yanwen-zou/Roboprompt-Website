@@ -10,8 +10,8 @@ in a browser, or serve `dist` with any static web server.
 
 Research content comes from `root.tex` and `sections/`. The author order and
 contribution markers follow the supplied author list. Homepage links are from
-the ActiveGlasses project page, plus Wendi Chen's supplied homepage; Guoxuan
-Xu's unconfirmed homepage is intentionally not linked.
+the ActiveGlasses project page, plus the supplied homepages for Wendi Chen and
+Guoxuan Xu (https://fluorescex.github.io/).
 
 GitHub, Feishu, and X Post buttons are disabled with empty `data-url` attributes until
 the project URLs are supplied. Replace them with anchors when adding the URLs.
