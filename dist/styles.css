@@ -45,6 +45,8 @@ h1 { font-size:112px; line-height:1.2; white-space:nowrap; }
 .button-primary { color:#fff; background:var(--blue); box-shadow:3px 3px 0 var(--ink); border:1.5px solid var(--ink); transform:rotate(-1deg); }
 .button-primary:hover { background:#213cbc; transform:translateY(-2px); }
 .button-resource { border:1.5px solid #92968d; color:var(--muted); background:transparent; }
+.button-resource[href] { color:var(--ink); border-color:var(--ink); }
+.button-resource[href]:hover { color:var(--blue); border-color:var(--blue); }
 .button:disabled { cursor:not-allowed; }
 .hero-stage { margin-top:34px; }
 .prompt-note { display:flex; align-items:center; gap:16px; font-size:30px; margin-bottom:15px; }
