@@ -15,8 +15,8 @@ Guoxuan Xu (https://fluorescex.github.io/).
 
 Paper, GitHub, and Feishu links are configured in `dist/index.html`. The paper
 links to arXiv:2610.10534, the code links to yanwen-zou/Roboprompt, and the
-Feishu button opens the supplied group QR image in a new tab. X Post
-remains disabled with an empty `data-url` until its URL is supplied.
+Feishu button opens the supplied group QR image in a new tab. X Post links to
+https://x.com/yanwenzou/status/2108232194477146390?s=46.
 
 Demo footage is prerecorded and does not connect to a robot. The top row shows
 bread, cup, and maze steering; the full presentation follows on its own row.
